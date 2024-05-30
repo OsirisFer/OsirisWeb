@@ -19,8 +19,8 @@ const db = mysql.createConnection({
 
 app.post("/add_user", (req, res) => {
   const sql =
-    "INSERT INTO student_details (`name`,`email`,`age`,`gender`) VALUES (?, ?, ?, ?)";
-  const values = [req.body.name, req.body.email, req.body.age, req.body.gender];
+    "INSERT INTO student_details (`name`,`description`,`priority`,`status`) VALUES (?, ?, ?, ?)";
+  const values = [req.body.name, req.body.description, req.body.priority, req.body.status];
   db.query(sql, values, (err, result) => {
     if (err)
       return res.json({ message: "Something unexpected has occured" + err });
@@ -48,12 +48,12 @@ app.get("/get_student/:id", (req, res) => {
 app.post("/edit_user/:id", (req, res) => {
   const id = req.params.id;
   const sql =
-    "UPDATE student_details SET `name`=?, `email`=?, `age`=?, `gender`=? WHERE id=?";
+    "UPDATE student_details SET `name`=?, `description`=?, `priority`=?, `status`=? WHERE id=?";
   const values = [
     req.body.name,
-    req.body.email,
-    req.body.age,
-    req.body.gender,
+    req.body.description,
+    req.body.priority,
+    req.body.status,
     id,
   ];
   db.query(sql, values, (err, result) => {
